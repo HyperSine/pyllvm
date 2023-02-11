@@ -7,7 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 option(PYLLVM_OPT_STATIC_CXXRT "Link with static C/C++ runtime library" OFF)
 option(PYLLVM_OPT_STATIC_LLVM "Link with static LLVM" OFF)
 
-find_package(Boost REQUIRED)
+#find_package(Boost REQUIRED)
 find_package(pybind11 REQUIRED)
 
 find_package(LLVM REQUIRED CONFIG)
@@ -90,7 +90,8 @@ pybind11_add_module(
 target_include_directories(pyllvm PRIVATE ${LLVM_INCLUDE_DIRS})
 target_link_directories(pyllvm PRIVATE ${LLVM_LIBRARY_DIRS})
 
-target_link_libraries(pyllvm PRIVATE Boost::headers pybind11::module)
+#target_link_libraries(pyllvm PRIVATE Boost::headers)
+target_link_libraries(pyllvm PRIVATE pybind11::module)
 if (PYLLVM_OPT_STATIC_CXXRT)
     target_compile_definitions(pyllvm PRIVATE _LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS)
     target_compile_definitions(pyllvm PRIVATE _LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS)

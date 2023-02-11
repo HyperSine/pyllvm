@@ -1,4 +1,3 @@
-#include <boost/format.hpp>
 #include <llvm/MC/MCRegister.h>
 #include "../../init.hpp"
 #include "../../macro.hpp"
@@ -35,8 +34,8 @@ namespace pyllvm {
                 )
                 .def(
                     "__repr__",
-                    [](llvm::MCRegister& self) -> std::string {
-                        return boost::str(boost::format("MCRegister(%|d|)") % self.id());
+                    [](llvm::MCRegister& self) -> py::str {
+                        return py::str("MCRegister({:d})").format(self.id());
                     }
                 )
                 //.def("id", &llvm::MCRegister::id) // skip: already bound as `__int__`

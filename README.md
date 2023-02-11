@@ -8,11 +8,11 @@ __STILL IN DEVELOPMENT, feel free to contribute or create a issue if you have an
 
 ### 1.1 For linux users
 
-* Make sure you have `boost`, `pybind11`, `LLVM >= 15.x.x` installed.
+* Make sure you have `pybind11`, `LLVM >= 15.x.x` installed.
 
   In Ubuntu, you can install them with one command:
   ```shell
-  $ sudo apt install libboost-all-dev python3-pybind11 llvm
+  $ sudo apt install python3-pybind11 llvm
   ```
 
 To install:
