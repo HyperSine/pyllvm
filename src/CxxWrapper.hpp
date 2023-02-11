@@ -11,7 +11,7 @@ namespace pyllvm {
         virtual bool isEmpty() const noexcept = 0;
 
         [[nodiscard]]
-        virtual std::string repr() const = 0;
+        virtual py::str repr() const = 0;
 
         [[nodiscard]]
         virtual py::Any unwrap() = 0;
@@ -38,7 +38,7 @@ namespace pyllvm {
         }
 
         [[nodiscard]]
-        virtual std::string repr() const override {
+        virtual py::str repr() const override {
             return py::str("{}(ptr = 0x{:x})").format(py::type_id<decltype(*this)>(), reinterpret_cast<uintptr_t>(ptr.get()));
         }
 
