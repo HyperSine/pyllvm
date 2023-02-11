@@ -1,0 +1,33 @@
+name: pyllvm-windows-msys2
+on: workflow_dispatch
+
+jobs:
+  pyllvm-windows-static:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.10.9
+      - uses: msys2/setup-msys2@v2
+        with:
+          location: D:\
+          msystem: clang64
+          update: true
+          install: >-
+            mingw-w64-clang-x86_64-toolchain
+            mingw-w64-clang-x86_64-cmake
+            mingw-w64-clang-x86_64-boost
+            mingw-w64-clang-x86_64-pybind11
+      - name: Build wheel
+        shell: pwsh
+        run: |
+          $env:PATH = '${{ env.pythonLocation }}\Scripts;${{ env.pythonLocation }};D:\msys64\clang64\bin;' + $env:PATH
+          python -m pip install build
+          python -m build --wheel `
+              '-C--build-option=build_ext' `
+              '-C--build-option=-DPYLLVM_OPT_STATIC_CXXRT=ON,PYLLVM_OPT_STATIC_LLVM=ON'
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          path: dist/*
