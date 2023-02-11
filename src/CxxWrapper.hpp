@@ -39,12 +39,16 @@ namespace pyllvm {
 
         [[nodiscard]]
         virtual std::string repr() const override {
-            throw py::not_implemented_error("todo: wait for c++20 <format>");
+            return py::str("{}(ptr = 0x{:x})").format(py::type_id<decltype(*this)>(), reinterpret_cast<uintptr_t>(ptr.get()));
         }
 
         [[nodiscard]]
         virtual py::Any unwrap() override {
-            return py::cast(std::move(ptr));
+            if (ptr) {
+                return py::cast(std::move(ptr));
+            } else {
+                py::pybind11_fail("Nothing to unwrap.");
+            }
         }
     };
 }

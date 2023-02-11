@@ -10,5 +10,5 @@ class CxxWrapper(Generic[T]):
     def isEmpty(self) -> bool:
         pass
 
-    def unwrap(self) -> Optional[T]:
+    def unwrap(self) -> T:
         pass
