@@ -1,6 +1,6 @@
 #include <llvm/MC/MCInst.h>
 #include <llvm/MC/MCRegisterInfo.h>
-#include <llvm/Support/raw_os_ostream.h>
+#include "../Support/raw_py_binaryio_ostream.hpp"
 #include "../../init.hpp"
 #include "../../macro.hpp"
 
@@ -46,11 +46,9 @@ namespace pyllvm {
                 //.def_static("createInst", &llvm::MCOperand::createInst)
                 .def(
                     "print",
-                    [](llvm::MCOperand& self, py::object& OS, py::nullable_ptr<llvm::MCRegisterInfo> RegInfo) {
-                        std::ostringstream oss;
-                        llvm::raw_os_ostream roo{ oss };
-                        py::scoped_ostream_redirect oss_redirect_guard{ oss, OS };   // redirect `oss` to `OS`
-                        self.print(roo, RegInfo.value);
+                    [](llvm::MCOperand& self, py::BinaryIO& OS, py::nullable_ptr<llvm::MCRegisterInfo> RegInfo) {
+                        llvm::raw_py_binaryio_ostream bio{ OS };
+                        self.print(bio, RegInfo.value);
                     },
                     py::arg("OS"),
                     py::arg("RegInfo") = nullptr
@@ -106,11 +104,9 @@ namespace pyllvm {
                 .def("clear", &llvm::MCInst::clear)
                 .def(
                     "print",
-                    [](llvm::MCInst& self, py::object& stream, llvm::MCRegisterInfo* register_info) {
-                        std::ostringstream oss;
-                        llvm::raw_os_ostream roo{ oss };
-                        py::scoped_ostream_redirect oss_redirect_guard{ oss, stream };   // redirect `oss` to `stream`
-                        self.print(roo, register_info);
+                    [](llvm::MCInst& self, py::BinaryIO& OS, llvm::MCRegisterInfo* register_info) {
+                        llvm::raw_py_binaryio_ostream bio{ OS };
+                        self.print(bio, register_info);
                     },
                     py::arg("OS"),
                     py::arg("RegInfo") = nullptr

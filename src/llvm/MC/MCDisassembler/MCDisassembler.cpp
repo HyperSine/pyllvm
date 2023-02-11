@@ -1,7 +1,7 @@
 #include <llvm/MC/MCContext.h>
 #include <llvm/MC/MCDisassembler/MCDisassembler.h>
 #include <llvm/MC/MCSubtargetInfo.h>
-#include <llvm/Support/raw_os_ostream.h>
+#include "../../Support/raw_py_binaryio_ostream.hpp"
 #include "../../../init.hpp"
 #include "../../../macro.hpp"
 
@@ -48,11 +48,8 @@ namespace pyllvm {
                         auto bytes_bufinfo = Bytes.request(false);
                         auto bytes_arrayref = llvm::ArrayRef<uint8_t>{ reinterpret_cast<const uint8_t*>(bytes_bufinfo.ptr), static_cast<size_t>(bytes_bufinfo.size) };
 
-                        std::ostringstream oss;
-                        llvm::raw_os_ostream roo{ oss };
-                        py::scoped_ostream_redirect oss_redirect_guard{ oss, CStream };   // redirect `oss` to `CStream`
-
-                        auto status = self.getInstruction(Instr, inst_size, bytes_arrayref, Address, roo);
+                        llvm::raw_py_binaryio_ostream bio{ CStream };
+                        auto status = self.getInstruction(Instr, inst_size, bytes_arrayref, Address, bio);
 
                         return std::make_tuple(status, inst_size);
                     },

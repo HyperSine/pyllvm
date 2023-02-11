@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import BinaryIO, Optional
 from .MCRegisterInfo import MCRegisterInfo
 
 class MCOperand:
@@ -81,5 +81,5 @@ class MCOperand:
     def isValid(self) -> bool:
         pass
 
-    def print(self, OS: object, RegInfo: Optional[MCRegisterInfo] = None) -> None:
+    def print(self, OS: BinaryIO, RegInfo: Optional[MCRegisterInfo] = None) -> None:
         pass

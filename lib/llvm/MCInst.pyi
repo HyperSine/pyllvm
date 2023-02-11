@@ -1,4 +1,4 @@
-from typing import List
+from typing import BinaryIO, List
 from .MCOperand import MCOperand
 from .MCRegisterInfo import MCRegisterInfo
 from .SMLoc import SMLoc
@@ -45,5 +45,5 @@ class MCInst:
     def getOperand(self, arg0: int) -> MCOperand:
         pass
 
-    def print(self, OS: object, RegInfo: MCRegisterInfo = None) -> None:
+    def print(self, OS: BinaryIO, RegInfo: MCRegisterInfo = None) -> None:
         pass
