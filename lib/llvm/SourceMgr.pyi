@@ -87,6 +87,9 @@ class SourceMgr:
     def getMainFileID(self) -> int:
         pass
 
+    def getMemoryBuffer(self, i: int) -> MemoryBuffer:
+        pass
+
     def getNumBuffers(self) -> int:
         pass
 

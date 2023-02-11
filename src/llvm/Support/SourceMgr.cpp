@@ -61,7 +61,12 @@ namespace pyllvm {
                     }
                 )
                 //.def("getBufferInfo", &llvm::SourceMgr::getBufferInfo)
-                //.def("getMemoryBuffer", &llvm::SourceMgr::getMemoryBuffer)
+                .def(
+                    "getMemoryBuffer",
+                    &llvm::SourceMgr::getMemoryBuffer,
+                    py::arg("i"),
+                    py::return_value_policy::reference_internal
+                )
                 .def("getNumBuffers", &llvm::SourceMgr::getNumBuffers)
                 .def("getMainFileID", &llvm::SourceMgr::getMainFileID)
                 .def("getParentIncludeLoc", &llvm::SourceMgr::getParentIncludeLoc, py::arg("i"))
