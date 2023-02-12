@@ -1,6 +1,8 @@
 from .AliasPattern import AliasPattern as AliasPattern
 from .AliasPatternCond import AliasPatternCond as AliasPatternCond
 from .AnonymousNameInit import AnonymousNameInit as AnonymousNameInit
+from .AsmRewrite import AsmRewrite as AsmRewrite
+from .AsmRewriteKind import AsmRewriteKind as AsmRewriteKind
 from .AsmToken import AsmToken as AsmToken
 from .BinOpInit import BinOpInit as BinOpInit
 from .BitInit import BitInit as BitInit
@@ -12,6 +14,7 @@ from .DagInit import DagInit as DagInit
 from .DagRecTy import DagRecTy as DagRecTy
 from .DebugCompressionType import DebugCompressionType as DebugCompressionType
 from .DefInit import DefInit as DefInit
+from .DiagnosticPredicateTy import DiagnosticPredicateTy as DiagnosticPredicateTy
 from .EmitDwarfUnwindType import EmitDwarfUnwindType as EmitDwarfUnwindType
 from .ExceptionHandling import ExceptionHandling as ExceptionHandling
 from .ExistsOpInit import ExistsOpInit as ExistsOpInit
@@ -20,10 +23,12 @@ from .FoldOpInit import FoldOpInit as FoldOpInit
 from .Init import Init as Init
 from .IntInit import IntInit as IntInit
 from .IntRecTy import IntRecTy as IntRecTy
+from .IntelExpr import IntelExpr as IntelExpr
 from .IsAOpInit import IsAOpInit as IsAOpInit
 from .LLVMContext import LLVMContext as LLVMContext
 from .ListInit import ListInit as ListInit
 from .ListRecTy import ListRecTy as ListRecTy
+from .MCAsmBackend import MCAsmBackend as MCAsmBackend
 from .MCAsmInfo import MCAsmInfo as MCAsmInfo
 from .MCAsmInfoCOFF import MCAsmInfoCOFF as MCAsmInfoCOFF
 from .MCAsmInfoDarwin import MCAsmInfoDarwin as MCAsmInfoDarwin
@@ -33,12 +38,18 @@ from .MCAsmInfoGOFF import MCAsmInfoGOFF as MCAsmInfoGOFF
 from .MCAsmInfoMicrosoft import MCAsmInfoMicrosoft as MCAsmInfoMicrosoft
 from .MCAsmInfoWasm import MCAsmInfoWasm as MCAsmInfoWasm
 from .MCAsmInfoXCOFF import MCAsmInfoXCOFF as MCAsmInfoXCOFF
+from .MCAsmLexer import MCAsmLexer as MCAsmLexer
 from .MCAsmMacro import MCAsmMacro as MCAsmMacro
 from .MCAsmMacroParameter import MCAsmMacroParameter as MCAsmMacroParameter
+from .MCAsmParser import MCAsmParser as MCAsmParser
+from .MCAsmParserExtension import MCAsmParserExtension as MCAsmParserExtension
 from .MCAssemblerFlag import MCAssemblerFlag as MCAssemblerFlag
+from .MCCodeEmitter import MCCodeEmitter as MCCodeEmitter
 from .MCContext import MCContext as MCContext
 from .MCDataRegionType import MCDataRegionType as MCDataRegionType
 from .MCDisassembler import MCDisassembler as MCDisassembler
+from .MCFixup import MCFixup as MCFixup
+from .MCFixupKind import MCFixupKind as MCFixupKind
 from .MCInst import MCInst as MCInst
 from .MCInstPrinter import MCInstPrinter as MCInstPrinter
 from .MCInstrAnalysis import MCInstrAnalysis as MCInstrAnalysis
@@ -53,14 +64,18 @@ from .MCRegisterDesc import MCRegisterDesc as MCRegisterDesc
 from .MCRegisterInfo import MCRegisterInfo as MCRegisterInfo
 from .MCSection import MCSection as MCSection
 from .MCSectionMachO import MCSectionMachO as MCSectionMachO
+from .MCStreamer import MCStreamer as MCStreamer
 from .MCSubtargetInfo import MCSubtargetInfo as MCSubtargetInfo
 from .MCSymbol import MCSymbol as MCSymbol
 from .MCSymbolAttr import MCSymbolAttr as MCSymbolAttr
+from .MCTargetAsmParser import MCTargetAsmParser as MCTargetAsmParser
 from .MCTargetOptions import MCTargetOptions as MCTargetOptions
 from .MCVersionMinType import MCVersionMinType as MCVersionMinType
 from .MemoryBuffer import MemoryBuffer as MemoryBuffer
 from .Module import Module as Module
 from .OpInit import OpInit as OpInit
+from .OperandMatchResultTy import OperandMatchResultTy as OperandMatchResultTy
+from .ParseInstructionInfo import ParseInstructionInfo as ParseInstructionInfo
 from .PatternsForOpcode import PatternsForOpcode as PatternsForOpcode
 from .RecTy import RecTy as RecTy
 from .Record import Record as Record
@@ -121,4 +136,7 @@ def InitializeNativeTargetDisassembler() -> bool:
     pass
 
 def TableGenParseFile(InputSrcMgr: SourceMgr, Records: RecordKeeper) -> bool:
+    pass
+
+def createMCAsmParser(SM: SourceMgr, C: MCContext, Out: MCStreamer, MAI: MCAsmInfo, CB: int = 0) -> MCAsmParser:
     pass

@@ -1,4 +1,7 @@
+from .MCAsmBackend import MCAsmBackend
 from .MCAsmInfo import MCAsmInfo
+from .MCAsmParser import MCAsmParser
+from .MCCodeEmitter import MCCodeEmitter
 from .MCContext import MCContext
 from .MCDisassembler import MCDisassembler
 from .MCInstPrinter import MCInstPrinter
@@ -7,12 +10,22 @@ from .MCInstrInfo import MCInstrInfo
 from .MCObjectFileInfo import MCObjectFileInfo
 from .MCRegisterInfo import MCRegisterInfo
 from .MCSubtargetInfo import MCSubtargetInfo
+from .MCTargetAsmParser import MCTargetAsmParser
 from .MCTargetOptions import MCTargetOptions
 from .Triple import Triple
 
 class Target:
 
+    def createMCAsmBackend(self, STI: MCSubtargetInfo, MRI: MCRegisterInfo, Options: MCTargetOptions) -> MCAsmBackend:
+        pass
+
     def createMCAsmInfo(self, MRI: MCRegisterInfo, TheTriple: str, Options: MCTargetOptions) -> MCAsmInfo:
+        pass
+
+    def createMCAsmParser(self, STI: MCSubtargetInfo, Parser: MCAsmParser, MII: MCInstrInfo, Options: MCTargetOptions) -> MCTargetAsmParser:
+        pass
+
+    def createMCCodeEmitter(self, II: MCInstrInfo, Ctx: MCContext) -> MCCodeEmitter:
         pass
 
     def createMCDisassembler(self, STI: MCSubtargetInfo, Ctx: MCContext) -> MCDisassembler:

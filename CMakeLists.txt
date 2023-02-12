@@ -51,8 +51,12 @@ pybind11_add_module(
         src/llvm/IR/Module.cpp
 
         src/llvm/MC/MCDisassembler/MCDisassembler.cpp
-        src/llvm/MC/SectionKind.cpp
-        src/llvm/MC/TargetRegistry.cpp
+        src/llvm/MC/MCParser/MCAsmLexer.cpp
+        src/llvm/MC/MCParser/MCAsmParser.cpp
+        src/llvm/MC/MCParser/MCAsmParserExtension.hpp
+        src/llvm/MC/MCParser/MCAsmParserExtension.cpp
+        src/llvm/MC/MCParser/MCTargetAsmParser.cpp
+        src/llvm/MC/MCAsmBackend.cpp
         src/llvm/MC/MCAsmInfo.hpp
         src/llvm/MC/MCAsmInfo.cpp
         src/llvm/MC/MCAsmInfoCOFF.cpp
@@ -62,8 +66,10 @@ pybind11_add_module(
         src/llvm/MC/MCAsmInfoWasm.cpp
         src/llvm/MC/MCAsmInfoXCOFF.cpp
         src/llvm/MC/MCAsmMacro.cpp
+        src/llvm/MC/MCCodeEmitter.cpp
         src/llvm/MC/MCContext.cpp
         src/llvm/MC/MCDirectives.cpp
+        src/llvm/MC/MCFixup.cpp
         src/llvm/MC/MCInst.cpp
         src/llvm/MC/MCInstPrinter.cpp
         src/llvm/MC/MCInstrAnalysis.cpp
@@ -74,9 +80,12 @@ pybind11_add_module(
         src/llvm/MC/MCRegisterInfo.cpp
         src/llvm/MC/MCSection.cpp
         src/llvm/MC/MCSectionMachO.cpp
+        src/llvm/MC/MCStreamer.cpp
         src/llvm/MC/MCSubtargetInfo.cpp
         src/llvm/MC/MCSymbol.cpp
         src/llvm/MC/MCTargetOptions.cpp
+        src/llvm/MC/SectionKind.cpp
+        src/llvm/MC/TargetRegistry.cpp
 
         src/llvm/Support/MemoryBuffer.cpp
         src/llvm/Support/raw_py_binaryio_ostream.hpp

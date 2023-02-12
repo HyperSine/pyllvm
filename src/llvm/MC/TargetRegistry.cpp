@@ -1,3 +1,4 @@
+#include <llvm/MC/MCAsmBackend.h>
 #include <llvm/MC/MCAsmInfo.h>
 #include <llvm/MC/MCCodeEmitter.h>
 #include <llvm/MC/MCContext.h>
@@ -6,6 +7,7 @@
 #include <llvm/MC/MCInstrInfo.h>
 #include <llvm/MC/MCInstPrinter.h>
 #include <llvm/MC/MCObjectFileInfo.h>
+#include <llvm/MC/MCParser/MCTargetAsmParser.h>
 #include <llvm/MC/MCRegisterInfo.h>
 #include <llvm/MC/MCSubtargetInfo.h>
 #include <llvm/MC/TargetRegistry.h>
@@ -72,8 +74,27 @@ namespace pyllvm {
                     py::arg("Features")
                 )
                 //.def("createTargetMachine", &llvm::Target::createTargetMachine)
-                //.def("createMCAsmBackend", &llvm::Target::createMCAsmBackend)
-                //.def("createMCAsmParser", &llvm::Target::createMCAsmParser)
+                .def(
+                    "createMCAsmBackend",
+                    &llvm::Target::createMCAsmBackend,
+                    py::arg("STI"),
+                    py::arg("MRI"),
+                    py::arg("Options"),
+                    py::keep_alive<0, 2>(),
+                    py::keep_alive<0, 3>(),
+                    py::keep_alive<0, 4>()
+                )
+                .def(
+                    "createMCAsmParser",
+                    &llvm::Target::createMCAsmParser,
+                    py::arg("STI"),
+                    py::arg("Parser"),
+                    py::arg("MII"),
+                    py::arg("Options"),
+                    py::keep_alive<0, 2>(),
+                    py::keep_alive<0, 3>(),
+                    py::keep_alive<0, 4>()
+                )
                 //.def("createAsmPrinter", &llvm::Target::createAsmPrinter)
                 .def(
                     "createMCDisassembler",
@@ -95,14 +116,14 @@ namespace pyllvm {
                     py::keep_alive<0, 5>(),
                     py::keep_alive<0, 6>()
                 )
-//                .def(
-//                    "createMCCodeEmitter",
-//                    &llvm::Target::createMCCodeEmitter,
-//                    py::arg("II"),
-//                    py::arg("Ctx"),
-//                    py::keep_alive<0, 2>(),
-//                    py::keep_alive<0, 3>()
-//                )
+               .def(
+                   "createMCCodeEmitter",
+                   &llvm::Target::createMCCodeEmitter,
+                   py::arg("II"),
+                   py::arg("Ctx"),
+                   py::keep_alive<0, 2>(),
+                   py::keep_alive<0, 3>()
+               )
                 //.def("createMCObjectStreamer", &llvm::Target::createMCObjectStreamer)
                 //.def("createAsmStreamer", &llvm::Target::createAsmStreamer)
                 //.def("createAsmTargetStreamer", &llvm::Target::createAsmTargetStreamer)
