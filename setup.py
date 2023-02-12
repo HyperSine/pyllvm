@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import os
+import os, sys
 import tempfile
 
 import setuptools
@@ -45,6 +45,7 @@ class cmake_build_ext(setuptools.command.build_ext.build_ext):
                 'cmake',
                 '-DCMAKE_BUILD_TYPE={}'.format('Debug' if self.debug else 'Release'),
                 '-DCMAKE_INSTALL_PREFIX={}'.format(os.path.abspath(self.build_lib)),
+                '-DPYTHON_EXECUTABLE={}'.format(sys.executable),
                 *cmake_defs,
                 '-B', self.cmake_build_dir,
                 '-S', self.cmake_source_dir
