@@ -54,6 +54,12 @@ struct type_caster<nullable_ptr<Type>> {
 
     bool load(handle src, bool convert) {
         value_conv conv;
+
+        if (src.is_none()) {
+            value = nullable_ptr<Type>{ nullptr };
+            return true;
+        }
+
         if (conv.load(src, convert)) {
             value = nullable_ptr<Type>{ std::move(conv) };
             return true;
@@ -74,7 +80,7 @@ struct type_caster<nonnull_ptr<Type>> {
 
     bool load(handle src, bool convert) {
         value_conv conv;
-        if (conv.load(src, convert)) {
+        if (!src.is_none() && conv.load(src, convert)) {
             value = nonnull_ptr<Type>{ std::move(conv) };
         } else {
             return false;
