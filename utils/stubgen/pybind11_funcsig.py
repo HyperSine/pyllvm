@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Tuple, Set, Callable, Optional
 
 import importlib.resources
+import logging
 
 import lark
 import lark.grammars
@@ -10,6 +11,8 @@ import lark.visitors
 
 if TYPE_CHECKING:
     from .type_manager import TypeManager
+
+__logger__ = logging.getLogger(__name__)
 
 class Pybind11FunctionSignature:
 
@@ -253,6 +256,8 @@ class Pybind11FunctionSignature:
                 raise NotImplementedError('todo: {}'.format(ast))
 
     def __init__(self, sig_string: str):
+        __logger__.debug('sig_string = {!r}'.format(sig_string))
+
         self._ast = self.parser().parse(sig_string)
         assert self._ast.data == 'pybind11_funcsig' and len(self._ast.children) == 3
 
