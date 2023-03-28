@@ -29,6 +29,7 @@ class ClassStubGenerator(StubGenerator):
     __ignored_data_attributes__ = {
         '__entries',
         '__dict__',
+        '__weakref__',
     }
 
     def __init__(self, manager: GeneratorManager, cls, cls_name: str, parent_stubgen: StubGenerator):

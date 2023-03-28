@@ -26,6 +26,7 @@ class ModuleStubGenerator(StubGenerator):
     }
 
     def __init__(self, manager: GeneratorManager, module, parent_stubgen: Optional[StubGenerator] = None):
+        from .attribute_stub_generator import AttributeStubGenerator
         from .class_stub_generator import ClassStubGenerator
         from .function_stub_generator import FunctionStubGenerator
 
@@ -82,7 +83,8 @@ class ModuleStubGenerator(StubGenerator):
                 else:
                     self.function_stubgens.append(FunctionStubGenerator(self.manager(), next_func, next_func_name, self))
             else:
-                raise NotImplementedError('Unexpected member `{}.{}`: {}'.format(self.module_qualname, member_name, member))
+                self.attribute_stubgens.append(AttributeStubGenerator(self.manager(), member, member_name, self))
+                #raise NotImplementedError('Unexpected member `{}.{}`: {}'.format(self.module_qualname, member_name, member))
 
     def name(self) -> str:
         return self.module_name

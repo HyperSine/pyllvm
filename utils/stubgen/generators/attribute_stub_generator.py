@@ -38,6 +38,7 @@ class AttributeStubGenerator(StubGenerator):
 
     def run(self):
         from .class_stub_generator import ClassStubGenerator
+        from .module_stub_generator import ModuleStubGenerator
 
         parent_stubgen = self.parent_stubgen()
         parent_type_manager = parent_stubgen.get_type_manager()
@@ -50,5 +51,7 @@ class AttributeStubGenerator(StubGenerator):
         if isinstance(parent_stubgen, ClassStubGenerator):
             parent_type_manager.import_(('typing', 'ClassVar'))
             parent_stubgen.push_line(indent, '{}: ClassVar[{}]'.format(self.attr_name, parent_type_manager.repr_of(attr_typepath)))
+        elif isinstance(parent_stubgen, ModuleStubGenerator):
+            parent_stubgen.push_line(0, '{}: {}'.format(self.attr_name, parent_type_manager.repr_of(attr_typepath)))
         else:
             parent_stubgen.push_line(indent, '{}: {}'.format(self.attr_name, parent_type_manager.repr_of(attr_typepath)))
